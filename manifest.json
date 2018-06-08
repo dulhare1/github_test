@@ -1,0 +1,54 @@
+{
+    "manifest_version": 2,
+    "name": "台鐵",
+    "description": "台鐵測試",
+    "version": "1.0",
+    "browser_action":
+    {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": [
+            "commandsListener.js"
+        ],
+        "persistent": false
+    },
+    "commands": {
+        "reload_extension": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+A",
+                "windows": "Ctrl+Shift+A",
+                "mac": "MacCtrl+Shift+A",
+                "chromeos": "Ctrl+Shift+A",
+                "linux": "Ctrl+Shift+A"
+            },
+            "description": "shortcut for reloading extensions"
+        },
+        "trigger_page":{
+            "suggested_key":{
+                "default": "Ctrl+Shift+Z",
+                "windows": "Ctrl+Shift+Z",
+                "mac": "MacCtrl+Shift+Z",
+                "chromeos": "Ctrl+Shift+Z",
+                "linux": "Ctrl+Shift+Z"
+            },
+            "description": "觸發"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "storage"
+    ]
+    }
