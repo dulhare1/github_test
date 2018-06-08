@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            width: 250px;
+        }
+
+        button {
+            height: 20px;
+            width: 50px;
+            outline: none;
+        }
+    </style>
+    <script src="popup.js"></script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>身分證</td>
+            <td>
+                <input type="text" id="person_id">
+            </td>
+        </tr>
+        <tr>
+            <td>乘車日期</td>
+            <td>
+                <select id="getin_date">
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>起站代碼</td>
+            <td>
+                <select id="from_station">
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>到站代碼</td>
+            <td>
+                <select id="to_station">
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>車次</td>
+            <td>
+                <input type="text" id="train_no">
+            </td>
+        </tr>
+        <tr>
+            <td>訂票張數</td>
+            <td>
+                <select id="order_qty_str">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </td>
+        </tr>
+
+    </table>
+    <button id="saveBtn">save!</button>
+</body>
+
+</html>
