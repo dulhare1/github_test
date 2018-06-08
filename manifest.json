@@ -3,10 +3,9 @@
     "name": "台鐵",
     "description": "台鐵測試",
     "version": "1.0",
-    "browser_action":
-    {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
     },
     "background": {
         "scripts": [
@@ -25,8 +24,8 @@
             },
             "description": "shortcut for reloading extensions"
         },
-        "trigger_page":{
-            "suggested_key":{
+        "trigger_page": {
+            "suggested_key": {
                 "default": "Ctrl+Shift+Z",
                 "windows": "Ctrl+Shift+Z",
                 "mac": "MacCtrl+Shift+Z",
@@ -39,7 +38,7 @@
     "content_scripts": [
         {
             "matches": [
-                "*://*/*"
+                "*://railway.hinet.net/Foreign*etno1.html*"
             ],
             "js": [
                 "content.js"
@@ -51,4 +50,4 @@
         "tabs",
         "storage"
     ]
-    }
+}
