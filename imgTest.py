@@ -83,15 +83,21 @@ if __name__ == "__main__":
 
     # path = '/Users/moriakiraakira/Desktop/截圖 2020-05-07 下午8.42.04.png'
     path = '/Users/moriakiraakira/Desktop/截圖 2020-05-08 上午11.03.55.png'
+
+    # path = '/Users/moriakiraakira/PycharmProjects/風管科課程/week1/image_screenshot_29.05.2020.png'
     origineImage = cv2.imread(path)
-    kernel = np.ones((5, 5), np.uint8)
-    origineImage = cv2.dilate(origineImage, kernel, iterations=1)
+    print(type(origineImage))
+    h,w,c=origineImage.shape
+    # print(h,w,c)
+
+    kernel = np.ones((3, 3), np.uint8)
 
     # 圖像灰度化
 
     # image = cv2.imread('test.jpg',0)
-
-    image = cv2.cvtColor(origineImage, cv2.COLOR_BGR2GRAY)
+    resizeImg = cv2.resize(origineImage, (w * 3, h * 3), interpolation=cv2.INTER_CUBIC)
+    cv2.imshow('resizeImg', resizeImg)
+    image = cv2.cvtColor(resizeImg, cv2.COLOR_BGR2GRAY)
 
     cv2.imshow('gray', image)
 
@@ -187,26 +193,40 @@ if __name__ == "__main__":
     for m in range(len(Position)):
         # cv2.rectangle(origineImage, (Position[m][0], Position[m][1]), (Position[m][2], Position[m][3]), (0, 229, 238),
         #               1)
-        print('----------------')
-        print('(', Position[m][1], ',', Position[m][3], ')(', Position[m][0], ',', Position[m][2], ')')
-        print('----Separate----')
+        #print('----------------')
+        #print('(', Position[m][1], ',', Position[m][3], ')(', Position[m][0], ',', Position[m][2], ')')
+        #print('----Separate----')
         # 秀每個字,應該要把空白也當成字元才可算入padding中,否則每個字的間隔相同(只能有字元無法分別單字)
-        # cv2.imshow('letter',origineImage[Position[m][1]:Position[m][3],Position[m][0]:Position[m][2]])
-        #         # cv2.waitKey(0)
-        #         # cv2.destroyAllWindows()
-        letterImg = origineImage[Position[m][1]:Position[m][3],Position[m][0]:Position[m][2]]
-        padding = 30 * m
-        print('padding:',padding)
-        newImg[Position[m][1]:Position[m][3],padding+Position[m][0]:padding+Position[m][2]]=letterImg
-        print('(',Position[m][1],',',Position[m][3],')(',padding+Position[m][0],',',padding+Position[m][2],')')
+        #cv2.imshow('letter',origineImage[Position[m][1]:Position[m][3],Position[m][0]:Position[m][2]])
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
+        letterImg = resizeImg[Position[m][1]:Position[m][3],Position[m][0]:Position[m][2]]
+        # cv2.imshow('letter', letterImg)
+        # dilateImg = cv2.dilate(letterImg, (5, 5), iterations=1)
+        # cv2.imshow('dilate', dilateImg)
+        # erodeImg = cv2.erode(letterImg, (5, 5), iterations=1)
+        # cv2.imshow('erode', erodeImg)
+        # print(pytesseract.image_to_string(erodeImg, lang='eng'))
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
-    print(pytesseract.image_to_string(newImg, lang='eng'))
+        # 重排
+        #padding = 30 * m
+        #print('padding:',padding)
+        #newImg[Position[m][1]:Position[m][3],padding+Position[m][0]:padding+Position[m][2]]=letterImg
+        #print('(',Position[m][1],',',Position[m][3],')(',padding+Position[m][0],',',padding+Position[m][2],')')
 
-    cv2.imshow('image', newImg)
+        # print(pytesseract.image_to_string(dilateImg, lang='eng'))
+
+
+
+    # cv2.imshow('image', letterImg)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+    print(pytesseract.image_to_string(resizeImg, lang='eng'))
+    print('-----')
+    print(pytesseract.image_to_string(origineImage, lang='eng'))
 
-
-
+    # 圖檔文字
     # Oo00000OOo0o0
     # dfijJILlnmhuwv
