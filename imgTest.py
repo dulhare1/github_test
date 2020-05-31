@@ -92,11 +92,18 @@ if __name__ == "__main__":
 
     kernel = np.ones((3, 3), np.uint8)
 
-    # 圖像灰度化
-
+    # Resize
     # image = cv2.imread('test.jpg',0)
     resizeImg = cv2.resize(origineImage, (w * 3, h * 3), interpolation=cv2.INTER_CUBIC)
     cv2.imshow('resizeImg', resizeImg)
+
+    #提高銳度
+    # kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]], np.float32)
+    # resizeImg = cv2.filter2D(resizeImg, -1, kernel=kernel)
+    # cv2.imshow('sharpenImg', resizeImg)
+
+
+    # 圖像灰度化
     image = cv2.cvtColor(resizeImg, cv2.COLOR_BGR2GRAY)
 
     cv2.imshow('gray', image)
@@ -201,7 +208,15 @@ if __name__ == "__main__":
         #cv2.waitKey(0)
         #cv2.destroyAllWindows()
         letterImg = resizeImg[Position[m][1]:Position[m][3],Position[m][0]:Position[m][2]]
-        # cv2.imshow('letter', letterImg)
+        padding = 60
+        newImg = np.zeros((Position[m][3]-Position[m][1]+padding,Position[m][2]-Position[m][0]+padding, 3), np.uint8)
+        newImg.fill(255)
+        (h,w,c) = letterImg.shape
+        newImg[int(padding/2):int(padding/2)+h, int(padding/2):int(padding/2)+w] = letterImg
+
+        print('--:', pytesseract.image_to_string(newImg, lang='eng', config='--psm 10'))
+
+        # cv2.imshow('letter', newImg)
         # dilateImg = cv2.dilate(letterImg, (5, 5), iterations=1)
         # cv2.imshow('dilate', dilateImg)
         # erodeImg = cv2.erode(letterImg, (5, 5), iterations=1)
@@ -216,16 +231,17 @@ if __name__ == "__main__":
         #newImg[Position[m][1]:Position[m][3],padding+Position[m][0]:padding+Position[m][2]]=letterImg
         #print('(',Position[m][1],',',Position[m][3],')(',padding+Position[m][0],',',padding+Position[m][2],')')
 
-        # print(pytesseract.image_to_string(dilateImg, lang='eng'))
 
 
 
-    # cv2.imshow('image', letterImg)
+
+
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    print(pytesseract.image_to_string(resizeImg, lang='eng'))
+    print(pytesseract.image_to_string(resizeImg, lang='eng', config='--psm 6'))
     print('-----')
-    print(pytesseract.image_to_string(origineImage, lang='eng'))
+    print(pytesseract.image_to_string(origineImage, lang='eng', config='--psm 6'))
+
 
     # 圖檔文字
     # Oo00000OOo0o0
